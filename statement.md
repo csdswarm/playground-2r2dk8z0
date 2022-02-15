@@ -177,8 +177,8 @@ function sayMyName() {
 
 Object.assign(MyObj.prototype, { sayMyName });
 
-function MyImprovedObj(...args, mi) {
-  MyObj.apply(this, args);
+function MyImprovedObj(mi, ...rest) {
+  MyObj.apply(this, rest);
   this.mi = (mi||'')[0];
 }
 
@@ -191,7 +191,7 @@ MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
   sayMyFullname
 });
 
-const batman = new MyImprovedObj('Bruce', 'Wayne', 'Thomas');
+const batman = new MyImprovedObj('Thomas', 'Bruce', 'Wayne');
 batman.sayMyName();
 batman.sayMyFullname();
 
