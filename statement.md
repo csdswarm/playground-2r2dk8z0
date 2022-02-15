@@ -157,3 +157,64 @@ hackerObj.sayMyName();
 ```
 
 That could create some havoc, right?
+
+### Prototypal inheritance
+
+So, this is the main point of creating all these constructors. It's basically so that we can use inheritance to reduce our work for similar
+things that are similar.
+
+Why write the same methods on multiple different classes that all have some base characteristics in common.
+
+```javascript runnable
+function MyObj(first, last) {
+  this.first = first;
+  this.last = last;
+}
+
+function sayMyName() {
+  console.log(`Hi, I'm ${this.first} ${this.last}`);
+}
+
+Object.assign(MyObj.prototype, { sayMyName });
+
+function MyImprovedObj(first, last, mi) {
+  MyObj(first, last).bind(this);
+  this.mi = (mi||'')[0];
+}
+
+function sayMyFullname() {
+  console.log(`Hi, my full name is ${this.first} ${this.mi}. ${this.last}!!!`);
+}
+
+MyImprovedObj.prototype = Object.create(MyObj.prototype);
+
+MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
+  sayMyFullname
+});
+
+const batman = new MyImprovedObj('Bruce', 'T', 'Wayne');
+batman.sayMyName();
+batman.sayMyFullName();
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
