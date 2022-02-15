@@ -178,7 +178,7 @@ function sayMyName() {
 Object.assign(MyObj.prototype, { sayMyName });
 
 function MyImprovedObj(first, last, mi) {
-  MyObj.bind(this)(first, last);
+  MyObj(first, last);
   this.mi = (mi||'')[0];
 }
 
@@ -195,6 +195,7 @@ const batman = new MyImprovedObj('Bruce', 'Wayne', 'Thomas');
 batman.sayMyName();
 batman.sayMyFullname();
 
+// we can also see that this is an instance of either constructor, which can also be useful
 console.log(batman instanceof MyImprovedObj);
 console.log(batman instanceof MyObj);
 ```
