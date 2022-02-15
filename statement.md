@@ -178,7 +178,7 @@ function sayMyName() {
 Object.assign(MyObj.prototype, { sayMyName });
 
 function MyImprovedObj(first, last, mi) {
-  MyObj(first, last).bind(this);
+  MyObj.bind(this)(first, last);
   this.mi = (mi||'')[0];
 }
 
