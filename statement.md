@@ -194,7 +194,7 @@ MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
 
 const batman = new MyImprovedObj('Bruce', 'T', 'Wayne');
 batman.sayMyName();
-batman.sayMyFullName();
+batman.sayMyFullname();
 
 ```
 
