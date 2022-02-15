@@ -98,7 +98,12 @@ function MyObj(first, last) {
 }
 
 MyObj.prototype.protoMethod = function () {
-  console.log(`I am a prototype method created that is attached and has access to the current version of this object, however, I only have access to properties attached to this so this.first "${this.first}", but not last "${last}". But, I'm a good memory saver.`);
+  try {
+    console.log(`I am a prototype method created that is attached and has access to the current version of this object, however, I only have access to properties attached to this so this.first "${this.first}"`);
+    console.log(`but not last "${last}", which will error.`)
+  } catch (e) {
+    console.log(`last triggered an error, but ... proto functions are good memory savers as they are referenced rather than copied.`);
+  }
 }
 
 MyObj.prototype.fatArrowProto = () => console.log(`Fat arrow functions will likely not work as expected here. this.first is "${this.first}", that's because "this" only refers to the scope in which the fat arrow function exists.`)
