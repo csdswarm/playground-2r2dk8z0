@@ -186,8 +186,7 @@ function sayMyFullname() {
   console.log(`Hi, my full name is ${this.first} ${this.mi}. ${this.last}!!!`);
 }
 
-MyImprovedObj.prototype = Object.create(MyObj.prototype);
-
+// we extend by setting the prototype of our object to an instance of the prototype of the base class.
 MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
   sayMyFullname
 });
@@ -196,6 +195,8 @@ const batman = new MyImprovedObj('Bruce', 'Wayne', 'Thomas');
 batman.sayMyName();
 batman.sayMyFullname();
 
+console.log(batman instanceof MyImprovedObj);
+console.log(batman instanceof MyObj);
 ```
 
 
