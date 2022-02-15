@@ -106,8 +106,11 @@ MyObj.prototype.fatArrowProto = () => console.log(`Fat arrow functions will like
 const myObj = new MyObj('Joe', 'Schmoe');
 
 myObj.instanceMethod();
+console.log();
 myObj.protoMethod();
+console.log();
 myObj.fatArrowProto();
+console.log();
 this.first = '[The fat arrow function has access to this level]';
 myObj.fatArrowProto();
 
