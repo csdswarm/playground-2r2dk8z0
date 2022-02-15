@@ -120,3 +120,40 @@ this.first = '[The fat arrow function has access to this level]';
 myObj.fatArrowProto();
 
 ```
+
+One main issue to be aware of in JS prototypes is that they are malleable. This makes them quite useful in a number of scenarios that are much
+more difficult to create in typical OOP environments that have real classes, but it has some drawbacks, too. 
+
+For one, it can make it easier to modify (hack) things that weren't intended to be modified. 
+
+For instance. Let's say you've defined a prototype in your library and make it available for other code and libraries to use. What you may not know
+is that, without some additional effort, these things can be pretty easy to take control of. 
+
+Watch this:
+
+```javascript runnable
+function MyObj(first, last) {
+  this.first = first;
+  this.last = last;
+}
+
+MyObj.prototype.sayMyName = function () {
+  console.log(`I'm ${this.first} ${this.last}`);
+}
+
+// In one library you might have this like this:
+const myObj = new MyObj('Original', 'Gangsta');
+myObj.sayMyName();
+
+// In a library that has been given access, however, we have this:
+const hackerObj = new MyObj('MC', 'Hammer');
+hackerObj.sayMyName();
+
+// This guy can actually override the prototype above, however
+hackerObj.__proto__.sayMyName = () => console.log(`It's Hammer time`);
+
+myObj.sayMyName();
+hackerObj.sayMyName();
+```
+
+That could create some havoc, right?
