@@ -192,7 +192,7 @@ MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
   sayMyFullname
 });
 
-const batman = new MyImprovedObj('Bruce', 'T', 'Wayne');
+const batman = new MyImprovedObj('Bruce', 'Wayne', 'Thomas');
 batman.sayMyName();
 batman.sayMyFullname();
 
