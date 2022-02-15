@@ -187,6 +187,7 @@ function sayMyFullname() {
 }
 
 // we extend by setting the prototype of our object to an instance of the prototype of the base class.
+// since we're here, lets hookup the other prototype methods, while we're at it.
 MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
   sayMyFullname
 });
@@ -200,7 +201,42 @@ console.log(batman instanceof MyImprovedObj);
 console.log(batman instanceof MyObj);
 ```
 
+But... Inheritance in JS may not work the way you think it does. 
 
+Watch this.
+
+```javascript runnable
+function MyObj(first, last) {
+  this.first = first;
+  this.last = last;
+}
+
+function sayMyName() {
+  console.log(`Hi, I'm ${this.first} ${this.last}`);
+}
+
+Object.assign(MyObj.prototype, { sayMyName });
+
+function MyImprovedObj(mi, ...rest) {
+  MyObj.apply(this, rest);
+  this.mi = (mi||'')[0];
+}
+
+function sayMyFullname() {
+  console.log(`Hi, my full name is ${this.first} ${this.mi}. ${this.last}!!!`);
+}
+
+// we extend by setting the prototype of our object to an instance of the prototype of the base class.
+// since we're here, lets hookup the other prototype methods, while we're at it.
+MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
+  sayMyFullname
+});
+
+const superman = new MyImprovedObj('Joseph', 'Clark', 'Kent');
+
+console.log(superman.__proto__);
+console.log(superman.__proto__.__proto__);
+```
 
 
 
