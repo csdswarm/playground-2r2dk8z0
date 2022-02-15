@@ -55,3 +55,25 @@ myObj.myObj('bozo', 'leClown');
 
 console.log(myObj);
 ```
+
+As you can see, the `MyObj` function is quite flexible and can be used both for instantiating a new object as well as being a method on another
+object prototype.
+
+Of course, you can make things really fun (and confusing), by actually checking how the function was called
+
+```javascript runnable
+function MyObj(first, last) {
+    if(new.target) {
+        this.first = first;
+        this.last = last;
+    } else {
+        return new MyObj(first, last);
+    }
+}
+
+const myObj = new MyObj('Joe', 'Schmoe');
+const byItself = MyObj('Bozo', 'LeClown');
+
+console.log(myObj);
+console.log(byItself);
+```
