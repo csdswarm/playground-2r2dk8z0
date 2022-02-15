@@ -1,6 +1,9 @@
-# Welcome!
+# Prototypes, Classes and Object Literals in JS!
 
-This Node.js template lets you get started quickly with a simple one-page playground.
+Javascript is pretty flexible in the types of object like structures you can use. However, it can also get very confusing.
+
+In this session, we are going to go over a few different ways of working with object-like structures, will explain a few of the differences
+and help clarify what's different in JS.
 
 ```javascript runnable
 console.log('Hello World!');
