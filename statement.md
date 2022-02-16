@@ -385,6 +385,22 @@ function newMyImprovedObj(mi, ...rest) {
 const wonderWoman = newMyImprovedObj('-', 'Diana', 'Prince');
 wonderWoman.sayMyName();
 wonderWoman.sayMyFullname();
+
+wonderWoman.__proto__.sayMyName = () => console.log(`I'm taking over here`);
+wonderWoman.sayMyName();
 ```
+
+Size wise, it's about the same as the others. I kept this version very similar to inheritance to show that it's flexible enough to use that way.
+We could have just as easily not called newMyObj from newMyImprovedObj ang gotten the same result in likely a similar number of lines.
+
+But, already you can see we can't effectively override the sayMyName method. Even if we did not have _sayMyName declared as a const, it wouldn't
+matter if we tried to replace that for existing instances, only those moving forward. But since it's a const, we already have that safety.
+
+All the properties of these objects belong to these objects. It will be difficult to create any surprises here, even intentionally. We will never
+need to recurse through a prototype tree to find out what's going on in this object. All the properties and method instances belong directly to it.
+
+The method constructors that these each use no longer belong directly to these constructors. 
+This will make it much easier for us to build new object creators without getting all of the other baggage that goes along with base classes 
+(Sure, we can have a beaver and we can have a duck, but what does a platypus inherit from? This way, it doesn't matter).
 
 
