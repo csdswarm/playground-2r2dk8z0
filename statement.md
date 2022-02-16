@@ -365,7 +365,7 @@ So, how do we do it?
 
 ```javascript runnable
 const _sayMyName = obj => () => console.log(`Hi, I'm ${obj.first} ${obj.last}`);
-const _sayMyFullName = obj => () => console.log(`Hi, my full name is ${obj.first} ${obj.mi}. ${obj.last}!!!`);
+const _sayMyFullname = obj => () => console.log(`Hi, my full name is ${obj.first} ${obj.mi}. ${obj.last}!!!`);
 
 function newMyObj(first, last) {
   const myObj = { first, last };
@@ -377,14 +377,14 @@ function newMyImprovedObj(mi, ...rest) {
   const myImprovedObj = newMyObj(...rest);
   Object.assign(myImprovedObj, {
       mi,
-      sayMyFullname: _sayMyFullName(myImprovedObj)
+      sayMyFullname: _sayMyFullname(myImprovedObj)
   })
   return myImprovedObj;
 }
 
 const wonderWoman = newMyImprovedObj('-', 'Diana', 'Prince');
 wonderWoman.sayMyName();
-wonderWoman.sayMyFullName();
+wonderWoman.sayMyFullname();
 ```
 
 
