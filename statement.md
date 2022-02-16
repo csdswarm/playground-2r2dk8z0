@@ -403,4 +403,9 @@ The method constructors that these each use no longer belong directly to these c
 This will make it much easier for us to build new object creators without getting all of the other baggage that goes along with base classes 
 (Sure, we can have a beaver and we can have a duck, but what does a platypus inherit from? This way, it doesn't matter).
 
+We haven't really gotten into `bind`, `call` and `apply` and how those affect prototypes and classes, but again, the object literal creation
+method does not need to worry about those issues at all. `bind` can be used by it for currying, but the `this` parameter means nothing. 
 
+I also haven't gotten into what happens when you try to assign a method to a variable from a class instance. If you don't `bind` the class instance
+to it, it won't work. With the above method, this is a non-issue. Each method instance is tied to the object instance that owns it. Again, less
+potential confusion.
