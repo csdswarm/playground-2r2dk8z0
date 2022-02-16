@@ -409,3 +409,8 @@ method does not need to worry about those issues at all. `bind` can be used by i
 I also haven't gotten into what happens when you try to assign a method to a variable from a class instance. If you don't `bind` the class instance
 to it, it won't work. With the above method, this is a non-issue. Each method instance is tied to the object instance that owns it. Again, less
 potential confusion.
+
+Here's a JS script window we can use to play around with these ideas if there is time.
+```javascript runnable
+
+```
