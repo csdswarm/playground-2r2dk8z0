@@ -209,7 +209,7 @@ This will help you understand the difference between the prototype and the insta
 ```javascript runnable
 function Super() {}
 
-Object.assign(Super.prototype, { a: 0, x: 1, y: 2, showMe() { console.log(JSON.stringify(this, 2, null)) } });
+Object.assign(Super.prototype, { a: 0, x: 1, y: 2, showMe() { console.log(`a: ${this.a}, x: ${this.x}, y: ${this.y}, z: ${this.z}`) } });
 
 function Child() {}
 
