@@ -229,6 +229,23 @@ console.log(JSON.stringify(test.__proto__.__proto__, null, 2));
 
 ```
 
+Notice how, a, x, y and z all exist on `this`, however, they don't all belong to `this`, when we stringify test, all we see is they `y` value.
+
+When we stringify it's prototype, all we see are the a and z value
+
+When we stringify the prototype of the prototype, we see the a, x and y values, however, a and y are the original values.
+
+Essentially, we are inheriting each value from the parent, and when we override, it's not precisely an override as much as a "shadow".
+
+Why would we even add items like this to the prototype directly? Well, in most cases, we would not, however, if we decide to write "getters" and
+"setters" we may not realize we are doing something like this. We might decide to put something on the prototype because it defaults to not
+enumerable on children, however, if they ever get "set" on the children, then they may all of a sudden, become enumerable because they are now 
+owned by that child. 
+
+There is a reason that JS has methods like .getOwnPropertyNames, and hasOwnProperty. It's for checking things like this.
+
+Doing a check like `if(this.x)` would return a different result than `if(this.hasOwnProperty('x'))` in situations like the above.
+
 Now let's talk about 
 
 ## Classes
@@ -300,9 +317,15 @@ superman.sayMyName();
 // Even though we "say" we are using "classes", we are still really using prototypes. 
 ```
 
-As you can see in the example above, the syntax is much cleaner, but we aren't really using classes. 
+As you can see in the example above, the syntax is much cleaner, but we aren't really using classes. They're still prototypes and they still
+have all the same issues that prototypes can have.
 
-But
+At least JS classes abstract prototypes so it's not as likely we would utilize paradigms that would lead to the same types of confusion that can
+normally happen. ... in newer code that uses this class paradigm, but we often use libraries that may still be doing it the old way, and there are
+still plenty of ways, as we become more advanced in JS that we can unwittingly create more of this confusion if we're not careful.
+
+I haven't even gotten deeply into the "nesting" of functions and "this", which I would also highly recommend avoiding.
+
 
 ### What are the differences between classes and prototypes?
 
@@ -314,7 +337,15 @@ makes a copy of it. The setup basically involves putting the page to copy on top
 
 Similar to printing presses, classes require a bit more effort to change the output of. Like photocopiers, with prototypes, if someone can access
 the original copy, they can white out some parts and add their own stuff in and all future copies will be affected. Of course, it's not an exact
-comparison, because changing the original won't actually change existing copies with a photocopier, but they will with a prototype.
+comparison, because as we see, changing the original won't actually change existing copies with a photocopier, but they will with a prototype, and
+that can apply to properties as well, which can be added and available but not noticeable 
+(essentially a default of non-enumerable until they are changed)
+
+Okay, finally, let's talk about my favorite way to handle many of the above situations using 
+
+## Object Literals
+
+
 
 
 
