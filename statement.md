@@ -201,6 +201,28 @@ console.log(batman instanceof MyImprovedObj);
 console.log(batman instanceof MyObj);
 ```
 
+I do want to show one interesting thing about prototypes that may make them a bit easier to understand, at least with what's going on. 
+
+This will help you understand the difference between the prototype and the instance.
+
+
+```javascript runnable
+function Super() {}
+
+Object.assign(Super.prototype, { a: 0, x: 1, y: 2, showMe() { console.log(JSON.stringify(this, 2, null)) } });
+
+function Child() {}
+
+// we extend by setting the prototype of our object to an instance of the prototype of the base class.
+// since we're here, lets hookup the other prototype methods, while we're at it.
+Child.prototype = Object.assign(Object.create(Super.prototype), {
+  a: 11, z: 3
+});
+
+const test = new Child();
+test.showMe();
+```
+
 Now let's talk about 
 
 ## Classes
@@ -287,56 +309,6 @@ makes a copy of it. The setup basically involves putting the page to copy on top
 Similar to printing presses, classes require a bit more effort to change the output of. Like photocopiers, with prototypes, if someone can access
 the original copy, they can white out some parts and add their own stuff in and all future copies will be affected. Of course, it's not an exact
 comparison, because changing the original won't actually change existing copies with a photocopier, but they will with a prototype.
-
-Let's see something interesting with prototypes to show a bit more of what's going on under the covers. I'll continue to use the new `class`
-keyword, as it's a bit easier to follow.
-
-```javascript runnable
-class Base {
-  constructor() {
-    this.x = 1;
-    this.y = 2;
-  }
-
-  showIt() {
-    console.log(this.x + this.y);
-  }
-
-  showMe() {
-    console.log(JSON.stringify(this, null, 2));
-  }
-}
-
-class Child extends Base {
-  constructor() {
-    super();
-    this.z = 3;
-  }
-
-  showMore() {
-    console.log(this.x + this.y + this.z);  
-  }
-}
-
-const a = new Child();
-
-a.showIt();
-a.showMore();
-a.showMe();
-
-// but look a little more closely
-console.log(a.hasOwnProperty('x'))
-console.log(a.hasOwnProperty('y'))
-console.log(a.hasOwnProperty('z'))
-```
-
-
-
-
-
-
-
-
 
 
 
