@@ -374,12 +374,12 @@ function newMyObj(first, last) {
 }
 
 function newMyImprovedObj(mi, ...rest) {
-  const myImprovedObj = newMyOb(...rest);
+  const myImprovedObj = newMyObj(...rest);
   myImprovedObj.sayMyFullname = _sayMyFullName(myImprovedObj);
   return myImprovedObj;
 }
 
-const wonderWoman = newMyImproveObj('-', 'Diana', 'Prince');
+const wonderWoman = newMyImprovedObj('-', 'Diana', 'Prince');
 wonderWoman.sayMyName();
 wonderWoman.sayMyFullName();
 ```
