@@ -323,6 +323,11 @@ const a = new Child();
 a.showIt();
 a.showMore();
 a.showMe();
+
+// but look a little more closely
+console.log(a.hasOwnProperty('x'))
+console.log(a.hasOwnProperty('y'))
+console.log(a.hasOwnProperty('z'))
 ```
 
 
