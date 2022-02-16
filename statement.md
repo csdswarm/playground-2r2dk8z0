@@ -345,9 +345,43 @@ Okay, finally, let's talk about my favorite way to handle many of the above situ
 
 ## Object Literals
 
+So, we can use prototypes and classes to make object instances, but we can frequently just as easily write a function that composes a new object
+instance for us. 
 
+What I like about this method is
+1. It's easy (I'll show you in a moment)
+2. There is no inheritance chain, no one can alter the prototype and change my instance. They can only change my instance, which is usually their instance.
+   (well, technically they can modify the base object instance, but it likely won't do them any good, as that's not where I put my methods)
+   - essentially, we can get closer to real encapsulation using this method
+3. It is difficult, if not impossible to confuse this version of objects with those that are created by classes in other languages. 
+   - We don't deal with this much on unity, but in many environments with full stack development, there are developers who are Java devs, first and
+     JS devs second. This method makes a clean break for them, which, in turn makes it less confusing what's going on. We may have other environments
+     in Audacy where devs use more than JS and JS is not their primary language.
+4. We don't use `this`, and therefore, it is impossible to confuse what's going on with the `this` keyword
+5. We can more easily break away from some of the problems of inheritance (banana, monkey, jungle problem), as this method lends itself more easily
+   to composition.
 
+So, how do we do it?
 
+```javascript runnable
+const _sayMyName = obj => console.log(`Hi, I'm ${obj.first} ${obj.last}`);
+const _sayMyFullName = obj => console.log(`Hi, my full name is ${obj.first} ${obj.mi}. ${obj.last}!!!`);
 
+function newMyObj(first, last) {
+  const myObj = { first, last };
+  myObj.sayMyName = _sayMyName(myObj);
+  return myObj;
+}
+
+function newMyImprovedObj(mi, ...rest) {
+  const myImprovedObj = newMyOb(...rest);
+  myImprovedObj.sayMyFullname = _sayMyFullName(myImprovedObj);
+  return myImprovedObj;
+}
+
+const wonderWoman = newMyImproveObj('-', 'Diana', 'Prince');
+wonderWoman.sayMyName();
+wonderWoman.sayMyFullName();
+```
 
 
