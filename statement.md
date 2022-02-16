@@ -220,7 +220,13 @@ Child.prototype = Object.assign(Object.create(Super.prototype), {
 });
 
 const test = new Child();
+test.y = 50;
 test.showMe();
+
+console.log(JSON.stringify(test, null, 2));
+console.log(JSON.stringify(test.__proto__, null, 2));
+console.log(JSON.stringify(test.__proto__.__proto__, null, 2));
+
 ```
 
 Now let's talk about 
