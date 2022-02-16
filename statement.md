@@ -201,43 +201,76 @@ console.log(batman instanceof MyImprovedObj);
 console.log(batman instanceof MyObj);
 ```
 
-But... Inheritance in JS may not work the way you think it does. 
+Now let's talk about 
 
-Watch this.
+## Classes
+
+Classes provide a slightly cleaner syntax for our data than prototypes. 
+
+If we are talking about "true" classes and what is commonly referred to as Object Oriented Programming (OOP), then there are a few principles
+that basically govern this paradigm:
+
+Encapsulation:
+This is basically all about keeping your private data private and your public data public. True OOP classes have this. Private members cannot be
+accessed and modified outside of the class declaration itself.
+
+Abstraction:
+In short, this is about hiding away complexity, and it is often expressed in inheritance patterns, but can also be expressed by simply taking our
+larger pieces of code and breaking them down into smaller, more manageable functions.
+
+Inheritance:
+We've already touched on this, but the general idea is to provide a means to share common functionality through the extension of base classes.
+A Motorcycle, Car and SUV are not the same thing, but they do tend to have a lot of similar features such as engines, wheels and ignitions and
+they are all primarily used for transportation. All things that could be summed up as "vehicles".
+
+Polymorphism:
+Basically the ability to take on many forms. This concepts provides classes to have methods that are defined not only by name, but also by their
+signature and who they belong to. This is often accomplish through concepts such as overriding and overloading of methods and properties.
+
+JS has all of these things, however, they aren't exactly baked into the language like they are in many classical OOP languages, and often by
+applying JavaScript's facsimile of classes in other languages, we actually make it more difficult to have some of these things 
+(primarily encapsulation as shown above)
+
+Let's get started with some examples of classes in JS:
+
 
 ```javascript runnable
-function MyObj(first, last) {
-  this.first = first;
-  this.last = last;
+class MyObj {
+  constructor(first, last) {
+    this.first = first;
+    this.last = last;
+  }
+
+  sayMyName() {
+    console.log(`Hi, I'm ${this.first} ${this.last}`);
+  }
 }
 
-function sayMyName() {
-  console.log(`Hi, I'm ${this.first} ${this.last}`);
+class MyImprovedObj extends MyObj {
+  constructor(mi, ...rest) {
+    super(...rest);
+    this.mi = mi;
+  }
+
+  sayMyFullname() {
+    console.log(`Hi, my full name is ${this.first} ${this.mi}. ${this.last}!!!`);  
+  }
 }
-
-Object.assign(MyObj.prototype, { sayMyName });
-
-function MyImprovedObj(mi, ...rest) {
-  MyObj.apply(this, rest);
-  this.mi = (mi||'')[0];
-}
-
-function sayMyFullname() {
-  console.log(`Hi, my full name is ${this.first} ${this.mi}. ${this.last}!!!`);
-}
-
-// we extend by setting the prototype of our object to an instance of the prototype of the base class.
-// since we're here, lets hookup the other prototype methods, while we're at it.
-MyImprovedObj.prototype = Object.assign(Object.create(MyObj.prototype), {
-  sayMyFullname
-});
 
 const superman = new MyImprovedObj('Joseph', 'Clark', 'Kent');
+superman.sayMyName();
+superman.sayMyFullname();
 
-console.log(superman.__proto__);
-console.log(superman.__proto__.__proto__);
+// Definitely cleaner that what we had before, but ...
+const spiderman = new MyObj('Peter', 'Parker');
+spiderman.sayMyName();
+spiderman.__proto__.sayMyName = () => console.log('There is no Dana, there is only Zuul.');
+
+spiderman.sayMyName();
+superman.sayMyName();
+
+// Even though we "say" we are using "classes", we are still really using prototypes. 
 ```
-
 
 
 
