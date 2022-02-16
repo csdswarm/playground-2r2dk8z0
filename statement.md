@@ -272,10 +272,58 @@ superman.sayMyName();
 // Even though we "say" we are using "classes", we are still really using prototypes. 
 ```
 
+As you can see in the example above, the syntax is much cleaner, but we aren't really using classes. 
 
+But
 
+### What are the differences between classes and prototypes?
 
+Classes are actually supposed to be more like "blueprints" for new objects, whereas prototypes are objects themselves that get copied.
 
+Consider the difference between a printing press and a photocopier. A printing press often requires a bit more effort to set up initially for
+a print, but once set up, it can easily make many prints of a particular template. A photocopier, on the other hand takes an original and simply
+makes a copy of it. The setup basically involves putting the page to copy on top of the scanner and voila.
+
+Similar to printing presses, classes require a bit more effort to change the output of. Like photocopiers, with prototypes, if someone can access
+the original copy, they can white out some parts and add their own stuff in and all future copies will be affected. Of course, it's not an exact
+comparison, because changing the original won't actually change existing copies with a photocopier, but they will with a prototype.
+
+Let's see something interesting with prototypes to show a bit more of what's going on under the covers. I'll continue to use the new `class`
+keyword, as it's a bit easier to follow.
+
+```javascript runnable
+class Base {
+  constructor() {
+    this.x = 1;
+    this.y = 2;
+  }
+
+  showIt() {
+    console.log(this.x + this.y);
+  }
+
+  showMe() {
+    console.log(JSON.stringify(this, null, 2));
+  }
+}
+
+class Child extends Base {
+  constructor() {
+    super();
+    this.z = 3;
+  }
+
+  showMore() {
+    console.log(this.x + this.y + this.z);  
+  }
+}
+
+const a = new Child();
+
+a.showIt();
+a.showMore();
+a.showMe();
+```
 
 
 
