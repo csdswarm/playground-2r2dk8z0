@@ -364,8 +364,8 @@ What I like about this method is
 So, how do we do it?
 
 ```javascript runnable
-const _sayMyName = obj => console.log(`Hi, I'm ${obj.first} ${obj.last}`);
-const _sayMyFullName = obj => console.log(`Hi, my full name is ${obj.first} ${obj.mi}. ${obj.last}!!!`);
+const _sayMyName = obj => () => console.log(`Hi, I'm ${obj.first} ${obj.last}`);
+const _sayMyFullName = obj => () => console.log(`Hi, my full name is ${obj.first} ${obj.mi}. ${obj.last}!!!`);
 
 function newMyObj(first, last) {
   const myObj = { first, last };
@@ -375,7 +375,10 @@ function newMyObj(first, last) {
 
 function newMyImprovedObj(mi, ...rest) {
   const myImprovedObj = newMyObj(...rest);
-  myImprovedObj.sayMyFullname = _sayMyFullName(myImprovedObj);
+  Object.assign(myImprovedObj, {
+      mi,
+      sayMyFullname: _sayMyFullName(myImprovedObj)
+  })
   return myImprovedObj;
 }
 
